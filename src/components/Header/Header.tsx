@@ -4,7 +4,10 @@ import styles from './Header.module.scss';
 import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectColorTheme, switchColorTheme } from '@/redux/colorThemeSlice';
+import {
+  selectColorTheme,
+  switchColorTheme,
+} from '@/redux/slices/colorThemeSlice';
 import { useAppDispatch } from '@/redux/redux-hook';
 import type { ColorTheme } from '@/types';
 
@@ -15,7 +18,7 @@ export const Header = ({}: HeaderProps) => {
 
   const theme: ColorTheme = useSelector(selectColorTheme);
 
-  function modeSwitcherClickHandler() {
+  function switchThemeHandler() {
     dispatch(switchColorTheme());
   }
 
@@ -31,10 +34,7 @@ export const Header = ({}: HeaderProps) => {
             <Link to={'/'}>Where is the world?</Link>
           </h2>
 
-          <div
-            className={styles.modeSwitcher}
-            onClick={modeSwitcherClickHandler}
-          >
+          <div className={styles.modeSwitcher} onClick={switchThemeHandler}>
             {theme === 'light' ? <IoMoonOutline /> : <IoMoon />}{' '}
             <span>{theme} Theme</span>
           </div>
