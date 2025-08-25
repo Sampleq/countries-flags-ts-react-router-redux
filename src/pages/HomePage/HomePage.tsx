@@ -8,7 +8,10 @@ import { getAllCountries } from '@/redux/asyncThunks';
 import { ALL_COUNTRIES } from '@/api_config';
 import { CountryCard } from '@/components/CountryCard';
 import { Controls } from '@/components/Controls';
-import { selectFilterName } from '@/redux/slices/filtersSlice';
+import {
+  selectFilterName,
+  selectFilterRegion,
+} from '@/redux/slices/filtersSlice';
 import { filterCountries } from '@/utils/filterCountries';
 
 interface HomePageProps {}
@@ -21,8 +24,13 @@ export const HomePage = ({}: HomePageProps) => {
   const { error, allCountries, loadingStatus } = countriesData;
 
   const filterName = useSelector(selectFilterName);
+  const filterRegion = useSelector(selectFilterRegion);
 
-  const filteredCountries = filterCountries(allCountries, filterName);
+  const filteredCountries = filterCountries(
+    allCountries,
+    filterName,
+    filterRegion
+  );
 
   useEffect(() => {
     dispatch(getAllCountries(ALL_COUNTRIES));
@@ -35,6 +43,9 @@ export const HomePage = ({}: HomePageProps) => {
 
         {error && <h2>Can't load Countries</h2>}
         {loadingStatus === 'loading' && <h2>Loading...</h2>}
+
+        <h2>Total Countries: {filteredCountries.length}</h2>
+
         <section className={styles.countriesList}>
           {filteredCountries.map((country) => (
             <CountryCard key={country.name.common} country={country} />

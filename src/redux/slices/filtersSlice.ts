@@ -4,7 +4,7 @@ import type { RootState } from '../store';
 
 const initialState: {
   name: string;
-  region: Region | null;
+  region: Lowercase<Region> | null;
 } = {
   name: '',
   region: null,
@@ -21,11 +21,20 @@ const filtersSlice = createSlice({
     clearFilterName: (state) => {
       state.name = ''; // immer
     },
+
+    changeFilterRegion: (
+      state,
+      action: PayloadAction<Lowercase<Region> | null>
+    ) => {
+      state.region = action.payload; // immer
+    },
   },
 });
 
-export const { changeFilterName, clearFilterName } = filtersSlice.actions;
+export const { changeFilterName, clearFilterName, changeFilterRegion } =
+  filtersSlice.actions;
 
 export const selectFilterName = (state: RootState) => state.filters.name;
+export const selectFilterRegion = (state: RootState) => state.filters.region;
 
 export default filtersSlice.reducer;
