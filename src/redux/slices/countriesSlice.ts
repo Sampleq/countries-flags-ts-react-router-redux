@@ -1,37 +1,46 @@
 import type { Country, LoadingStatus } from '@/types';
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { getAllCountries } from '../asyncThunks';
 import type { RootState } from '../store';
 
 const initialState: {
-  allAountries: Country[];
+  allCountries: Country[];
   loadingStatus: LoadingStatus;
+  error: null | string;
 } = {
-  allAountries: [],
+  allCountries: [],
   loadingStatus: 'idle',
+  error: null,
 };
 
 const countriesSlice = createSlice({
   name: '@countries',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null; // immer
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllCountries.pending, (state) => {
       state.loadingStatus = 'loading';
+      state.error = null;
     });
 
     builder.addCase(getAllCountries.fulfilled, (state, action) => {
-      state.allAountries = action.payload;
+      state.allCountries = action.payload;
       state.loadingStatus = 'received';
     });
 
-    builder.addCase(getAllCountries.rejected, (state) => {
+    builder.addCase(getAllCountries.rejected, (state, action) => {
       state.loadingStatus = 'rejected';
+      state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
     });
   },
 });
 
-export const selectAllCountries = (state: RootState) =>
-  state.countries.allAountries;
+export const { clearError } = countriesSlice.actions;
+
+export const selectCountries = (state: RootState) => state.countries;
 
 export default countriesSlice.reducer;

@@ -1,11 +1,14 @@
 import type { Country } from '@/types';
 import styles from './CountryCard.module.scss';
+import { useNavigate, type NavigateFunction } from 'react-router-dom';
 
 interface CountryCardProps {
   country: Country;
 }
 
 export const CountryCard = ({ country }: CountryCardProps) => {
+  const navigate: NavigateFunction = useNavigate();
+
   const infoData = [
     {
       title: 'Population',
@@ -22,7 +25,11 @@ export const CountryCard = ({ country }: CountryCardProps) => {
   ];
 
   return (
-    <div className={styles.countryCard}>
+    <div
+      className={styles.countryCard}
+      onClick={() => navigate(`country/${country.name.common}`)}
+      tabIndex={0}
+    >
       <img src={country.flags.png} alt={country.flags.alt} />
 
       <div className={styles.content}>
