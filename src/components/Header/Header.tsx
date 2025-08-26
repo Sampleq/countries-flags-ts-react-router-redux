@@ -10,6 +10,7 @@ import {
 } from '@/redux/slices/colorThemeSlice';
 import { useAppDispatch } from '@/redux/redux-hook';
 import type { ColorTheme } from '@/types';
+import { clearAllFilters } from '@/redux/slices/filtersSlice';
 
 interface HeaderProps {}
 
@@ -22,6 +23,10 @@ export const Header = ({}: HeaderProps) => {
     dispatch(switchColorTheme());
   }
 
+  function clearAllFiltresHandler() {
+    dispatch(clearAllFilters());
+  }
+
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
@@ -31,7 +36,9 @@ export const Header = ({}: HeaderProps) => {
       <Wrapper>
         <div className={styles.container}>
           <h2>
-            <Link to={'/'}>Where is the world?</Link>
+            <Link to={'/'} onClick={clearAllFiltresHandler}>
+              Where is the world?
+            </Link>
           </h2>
 
           <div className={styles.modeSwitcher} onClick={switchThemeHandler}>

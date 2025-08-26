@@ -20,7 +20,7 @@ export const HomePage = ({}: HomePageProps) => {
   const dispatch = useAppDispatch();
 
   const countriesData = useSelector(selectCountries);
-  console.log(countriesData);
+  // console.log(countriesData);
   const { error, allCountries, loadingStatus } = countriesData;
 
   const filterName = useSelector(selectFilterName);
@@ -33,7 +33,9 @@ export const HomePage = ({}: HomePageProps) => {
   );
 
   useEffect(() => {
-    dispatch(getAllCountries(ALL_COUNTRIES));
+    if (!allCountries.length) {
+      dispatch(getAllCountries(ALL_COUNTRIES));
+    }
   }, []); //! проверить загружаются ли страны если перейти на сайт сразу на детальную страницу а потом вернутся Link на главную
 
   return (
@@ -42,15 +44,19 @@ export const HomePage = ({}: HomePageProps) => {
         <Controls />
 
         {error && <h2>Can't load Countries</h2>}
-        {loadingStatus === 'loading' && <h2>Loading...</h2>}
+        {loadingStatus === 'loading' ? (
+          <h2>Loading...</h2>
+        ) : (
+          <>
+            <h2>Total Countries: {filteredCountries.length}</h2>
 
-        <h2>Total Countries: {filteredCountries.length}</h2>
-
-        <section className={styles.countriesList}>
-          {filteredCountries.map((country) => (
-            <CountryCard key={country.name.common} country={country} />
-          ))}
-        </section>
+            <section className={styles.countriesList}>
+              {filteredCountries.map((country) => (
+                <CountryCard key={country.name.common} country={country} />
+              ))}
+            </section>
+          </>
+        )}
       </Wrapper>
     </div>
   );

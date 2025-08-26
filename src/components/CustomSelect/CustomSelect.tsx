@@ -24,11 +24,16 @@ export const CustomSelect = (props: CustomSelectProps) => {
       isSearchable={false}
       isClearable
       styles={{
+        singleValue: (baseStyles, state) => ({
+          ...baseStyles,
+          color: 'var(--colors-text)', // color of text when option is selected
+        }),
+
         control: (baseStyles, state) => ({
           ...baseStyles,
           // borderColor: state.isFocused ? 'red' : baseStyles.borderColor,
           backgroundColor: 'var(--colors-ui-base)',
-          color: 'var(--colors-text)',
+          // color: 'var(--colors-text)',
           borderRadius: 'var(--radii)',
           padding: '0.25rem',
           border: 'none',
@@ -46,9 +51,16 @@ export const CustomSelect = (props: CustomSelectProps) => {
             : 'var(--colors-ui-base)',
         }),
 
+        menu: (baseStyles, state) => ({
+          ...baseStyles,
+          backgroundColor: 'var(--colors-ui-base)', // container of select options dropdown
+        }),
+
         clearIndicator: (baseStyles, props) => ({
           ...baseStyles,
           cursor: 'pointer',
+          color: 'crimson',
+
           ':hover': {
             color: 'red',
           },

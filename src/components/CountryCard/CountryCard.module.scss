@@ -1,6 +1,6 @@
 .countryCard {
   border-radius: var(--radii);
-  background-color: car(--colors-ui-base);
+  background-color: var(--colors-ui-base);
   box-shadow: var(--shadow);
   cursor: pointer;
   overflow: hidden;
@@ -12,7 +12,7 @@
   img {
     display: block;
     width: 100%;
-    max-height: 25rem;
+    // max-height: 25rem;
     // height: 150px;
     object-fit: cover;
     object-position: center;

@@ -28,11 +28,19 @@ const filtersSlice = createSlice({
     ) => {
       state.region = action.payload; // immer
     },
+
+    clearAllFilters: () => {
+      return initialState;
+    },
   },
 });
 
-export const { changeFilterName, clearFilterName, changeFilterRegion } =
-  filtersSlice.actions;
+export const {
+  changeFilterName,
+  clearFilterName,
+  changeFilterRegion,
+  clearAllFilters,
+} = filtersSlice.actions;
 
 export const selectFilterName = (state: RootState) => state.filters.name;
 export const selectFilterRegion = (state: RootState) => state.filters.region;

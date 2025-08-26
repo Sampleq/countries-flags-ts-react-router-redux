@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import colorThemeReducer from './slices/colorThemeSlice';
-import countriesSliceReducer from './slices/countriesSlice';
-import filtersSliceReducer from './slices/filtersSlice';
+import countriesReducer from './slices/countriesSlice';
+import filtersReducer from './slices/filtersSlice';
+import detailedCountryReducer from './slices/detailedCountrySlice';
 
 export const store = configureStore({
   reducer: {
     colorTheme: colorThemeReducer,
-    filters: filtersSliceReducer,
-    countries: countriesSliceReducer,
+    filters: filtersReducer,
+    country: detailedCountryReducer,
+    countries: countriesReducer,
   },
 });
 
