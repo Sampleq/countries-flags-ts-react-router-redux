@@ -13,6 +13,7 @@ const initialState: {
 const filtersSlice = createSlice({
   name: '@filters',
   initialState,
+
   reducers: {
     changeFilterName: (state, action: PayloadAction<string>) => {
       state.name = action.payload; // immer

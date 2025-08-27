@@ -10,7 +10,10 @@ import { useAppDispatch } from '@/redux/redux-hook';
 import { getDetailedCountry } from '@/redux/asyncThunks';
 import { getDetailedCountryURL } from '@/api_config';
 import { useSelector } from 'react-redux';
-import { selectDetailedCountry } from '@/redux/slices/detailedCountrySlice';
+import {
+  resetDetailedCountryState,
+  selectDetailedCountry,
+} from '@/redux/slices/detailedCountrySlice';
 import { Button } from '@/components/Button';
 import { IoArrowBack } from 'react-icons/io5';
 import { CountryInfo } from '@/components/CountryInfo';
@@ -34,6 +37,10 @@ export const Details = ({}: DetailsProps) => {
     if (nameParam) {
       dispatch(getDetailedCountry(getDetailedCountryURL(nameParam)));
     }
+
+    return () => {
+      dispatch(resetDetailedCountryState()); // to remove flashing of previous detailed country
+    };
   }, [nameParam]);
 
   return (
@@ -47,8 +54,7 @@ export const Details = ({}: DetailsProps) => {
         {loadingStatus === 'loading' ? (
           <h2>Loading...</h2>
         ) : country ? (
-          //! просто удалять страну из стора при размонтировании
-          // nameParam === country.name.common - предотвращаем промигивание предыдущей страны, но не удаляем её из стора на случай повторного запроса той же самой страны (или можно просто удалять страну из стора при размонтировании)
+          // nameParam === country.name.common - предотвращаем промигивание предыдущей страны, но не удаляем её из стора на случай повторного запроса той же самой страны (но приходится просто удалять страну из стора при размонтировании, из-за различных  nameParam в API для разных стран)
           <CountryInfo country={country} />
         ) : (
           <h2>No Country data loaded.</h2>

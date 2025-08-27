@@ -1,5 +1,4 @@
 import Select from 'react-select';
-import styles from './CustomSelect.module.scss';
 import type { SelectOption } from '@/types';
 
 interface CustomSelectProps {
@@ -25,12 +24,12 @@ export const CustomSelect = (props: CustomSelectProps) => {
       isSearchable={false}
       isClearable
       styles={{
-        singleValue: (baseStyles, state) => ({
+        singleValue: (baseStyles) => ({
           ...baseStyles,
           color: 'var(--colors-text)', // color of text when option is selected
         }),
 
-        control: (baseStyles, state) => ({
+        control: (baseStyles) => ({
           ...baseStyles,
           // borderColor: state.isFocused ? 'red' : baseStyles.borderColor,
           backgroundColor: 'var(--colors-ui-base)',
@@ -52,12 +51,12 @@ export const CustomSelect = (props: CustomSelectProps) => {
             : 'var(--colors-ui-base)',
         }),
 
-        menu: (baseStyles, state) => ({
+        menu: (baseStyles) => ({
           ...baseStyles,
           backgroundColor: 'var(--colors-ui-base)', // container of select options dropdown
         }),
 
-        clearIndicator: (baseStyles, props) => ({
+        clearIndicator: (baseStyles) => ({
           ...baseStyles,
           cursor: 'pointer',
           color: 'crimson',
@@ -67,7 +66,7 @@ export const CustomSelect = (props: CustomSelectProps) => {
           },
         }),
 
-        dropdownIndicator: (baseStyles, props) => ({
+        dropdownIndicator: (baseStyles) => ({
           ...baseStyles,
           cursor: 'pointer',
           ':hover': {

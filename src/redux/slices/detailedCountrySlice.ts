@@ -16,7 +16,11 @@ const initialState: {
 const detailedCountrySlice = createSlice({
   name: 'detailedCountry',
   initialState,
-  reducers: {},
+
+  reducers: {
+    resetDetailedCountryState: () => initialState,
+  },
+
   extraReducers: (builder) => {
     builder.addCase(getDetailedCountry.pending, (state) => {
       state.loadingStatus = 'loading';
@@ -32,7 +36,7 @@ const detailedCountrySlice = createSlice({
   },
 });
 
-// export const {} = detailedCountrySlice.actions
+export const { resetDetailedCountryState } = detailedCountrySlice.actions;
 
 export const selectDetailedCountry = (state: RootState) => state.country;
 

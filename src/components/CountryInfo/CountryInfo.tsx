@@ -108,7 +108,7 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
             <span>There is no border countries</span>
           ) : (
             <div className={styles.tagGroup}>
-              {country.borders.map((borderCountryAbr, i) => (
+              {country.borders.map((borderCountryAbr) => (
                 <span
                   className={styles.tag}
                   key={borderCountryAbr}

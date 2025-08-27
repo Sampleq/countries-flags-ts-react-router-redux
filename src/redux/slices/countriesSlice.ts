@@ -16,11 +16,13 @@ const initialState: {
 const countriesSlice = createSlice({
   name: '@countries',
   initialState,
+
   reducers: {
     clearError: (state) => {
       state.error = null; // immer
     },
   },
+
   extraReducers: (builder) => {
     builder.addCase(getAllCountries.pending, (state) => {
       state.loadingStatus = 'loading';
