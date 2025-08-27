@@ -27,10 +27,20 @@ export const CountryCard = ({ country }: CountryCardProps) => {
   return (
     <div
       className={styles.countryCard}
-      onClick={() => navigate(`country/${country.name.common}`)}
+      onClick={() => {
+        // console.log(country.name.common);
+        // //* fix free API bug
+        if (country.name.common === 'United States') {
+          navigate(`country/USA`);
+          return;
+        }
+
+        navigate(`country/${country.name.common}`);
+      }}
       tabIndex={0}
     >
-      <img src={country.flags.png} alt={country.flags.alt} />
+      {/* <img src={country.flags.png} alt={country.flags.alt} /> */}
+      <img src={country.flags.svg} alt={country.flags.alt} />
 
       <div className={styles.content}>
         <h3>{country.name.common}</h3>

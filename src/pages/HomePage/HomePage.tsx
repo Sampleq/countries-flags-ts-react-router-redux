@@ -1,7 +1,7 @@
 import { Wrapper } from '@/components/Wrapper';
 import styles from './HomePage.module.scss';
 import { useSelector } from 'react-redux';
-import { selectCountries } from '@/redux/slices/countriesSlice';
+import { selectAllCountries } from '@/redux/slices/countriesSlice';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/redux/redux-hook';
 import { getAllCountries } from '@/redux/asyncThunks';
@@ -19,7 +19,7 @@ interface HomePageProps {}
 export const HomePage = ({}: HomePageProps) => {
   const dispatch = useAppDispatch();
 
-  const countriesData = useSelector(selectCountries);
+  const countriesData = useSelector(selectAllCountries);
   // console.log(countriesData);
   const { error, allCountries, loadingStatus } = countriesData;
 

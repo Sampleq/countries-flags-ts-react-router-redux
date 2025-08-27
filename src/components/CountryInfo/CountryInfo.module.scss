@@ -17,19 +17,22 @@
   img {
     display: block;
     width: 100%;
-    max-width: 80rem;
+    max-width: 75rem;
     margin: 0 auto;
+    box-shadow: var(--shadow);
   }
 
   h1 {
     font-weight: var(--fw-normal);
+    margin: 1rem 0;
   }
 
   .listGroup {
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
 
-    gap: 2rem;
+    gap: 1.5rem;
 
     @media (min-width: 1024px) {
       flex-direction: row;
@@ -46,13 +49,12 @@
   }
 
   .meta {
-    margin-top: 3rem;
     display: flex;
     gap: 1.5rem;
     flex-direction: column;
     align-items: flex-start;
 
-    & > b {
+    & b {
       font-weight: var(--fw-bold);
     }
 
@@ -64,7 +66,7 @@
 
   .tagGroup {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
   }
   .tag {

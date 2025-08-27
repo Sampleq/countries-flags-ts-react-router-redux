@@ -41,3 +41,8 @@ export const getDetailedCountry = createAsyncThunk<
     return null;
   }
 });
+
+// export const getNeighborsNames = createAsyncThunk<
+//   Country['name']['common'][],
+//   string[]
+// >('@country/getNeighborsNames', async (borders) => {});

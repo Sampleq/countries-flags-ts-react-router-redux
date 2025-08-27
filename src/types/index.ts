@@ -25,6 +25,7 @@ export interface Country {
       };
     };
   };
+  cca3: string;
   capital: [string];
   region: Region;
   population: number;
@@ -35,7 +36,7 @@ export interface DetailedCountry {
     common: string;
     official: string;
     nativeName: {
-      cat: {
+      [key: string]: {
         official: string;
         common: string;
       };
@@ -67,7 +68,7 @@ export interface DetailedCountry {
   };
   latlng: number[];
   landlocked: boolean;
-  borders: string[];
+  borders?: string[];
   area: number;
   demonyms: {
     eng: {

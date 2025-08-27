@@ -46,7 +46,8 @@ export const Details = ({}: DetailsProps) => {
         {error && <h2>Can't load Country</h2>}
         {loadingStatus === 'loading' ? (
           <h2>Loading...</h2>
-        ) : country && nameParam === country.name.common ? (
+        ) : country ? (
+          //! просто удалять страну из стора при размонтировании
           // nameParam === country.name.common - предотвращаем промигивание предыдущей страны, но не удаляем её из стора на случай повторного запроса той же самой страны (или можно просто удалять страну из стора при размонтировании)
           <CountryInfo country={country} />
         ) : (
