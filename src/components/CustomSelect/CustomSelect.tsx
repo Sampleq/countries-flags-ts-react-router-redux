@@ -15,6 +15,7 @@ export const CustomSelect = (props: CustomSelectProps) => {
     { value: 'asia', label: 'Asia' },
     { value: 'europe', label: 'Europe' },
     { value: 'oceania', label: 'Oceania' },
+    { value: 'antarctic', label: 'Antarctic' },
   ];
 
   return (

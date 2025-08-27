@@ -33,8 +33,11 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
           <ul>
             <li>
               <b>Native Name:</b>{' '}
-              {Object.values(country.name.nativeName)[0].official}
-              {/* "cat" - для каждой страны разный ключ */}
+              {/* {Object.values(country.name)[1].official} */}
+              {country.name.nativeName
+                ? Object.values(country.name.nativeName)[0].official
+                : country.name.official}
+              {/* "cat" - в API для каждой страны разный ключ в nativeName */}
             </li>
             <li>
               <b>Population</b> {country.population.toLocaleString()}
@@ -46,7 +49,7 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
               <b>Sub Region:</b> {country.subregion}
             </li>
             <li>
-              <b>Capital:</b> {country.capital}
+              <b>Capital:</b> {country.capital || 'no data'}
             </li>
           </ul>
 
@@ -59,18 +62,22 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
             </li>
             <li>
               <b>Currency:</b>{' '}
-              {Object.values(country.currencies).map((currency) => (
-                <span key={currency.symbol}>{currency.name} </span>
-              ))}
+              {country.currencies
+                ? Object.values(country.currencies).map((currency) => (
+                    <span key={currency.symbol}>{currency.name} </span>
+                  ))
+                : 'no data'}
             </li>
             <li>
               <b>Languages:</b>{' '}
-              {Object.values(country.languages).map((language, i, arr) => (
-                <span key={language}>
-                  {language}
-                  {i !== arr.length - 1 ? ', ' : ''}
-                </span>
-              ))}
+              {country.languages
+                ? Object.values(country.languages).map((language, i, arr) => (
+                    <span key={language}>
+                      {language}
+                      {i !== arr.length - 1 ? ', ' : ''}
+                    </span>
+                  ))
+                : 'no data'}
             </li>
             <li>
               <b>See on the map:</b>{' '}
@@ -96,7 +103,6 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
         <div className={styles.meta}>
           <span>
             <b>Border Countries:</b> <i>(experimental API)</i>
-            {/* <b>:</b>{' '} */}
           </span>
           {!country.borders ? (
             <span>There is no border countries</span>

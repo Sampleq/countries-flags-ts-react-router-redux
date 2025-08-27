@@ -52,7 +52,11 @@ export const HomePage = ({}: HomePageProps) => {
 
             <section className={styles.countriesList}>
               {filteredCountries.map((country) => (
-                <CountryCard key={country.name.common} country={country} />
+                <CountryCard
+                  key={country.name.common}
+                  country={country}
+                  searchPrompt={filterName}
+                />
               ))}
             </section>
           </>

@@ -1,12 +1,14 @@
 import type { Country } from '@/types';
 import styles from './CountryCard.module.scss';
 import { useNavigate, type NavigateFunction } from 'react-router-dom';
+import { highlightMatch } from '@/utils/highlightMatch';
 
 interface CountryCardProps {
   country: Country;
+  searchPrompt?: string;
 }
 
-export const CountryCard = ({ country }: CountryCardProps) => {
+export const CountryCard = ({ country, searchPrompt }: CountryCardProps) => {
   const navigate: NavigateFunction = useNavigate();
 
   const infoData = [
@@ -23,6 +25,8 @@ export const CountryCard = ({ country }: CountryCardProps) => {
       description: country.capital,
     },
   ];
+
+  // console.log(highlightMatch(country.name.common, searchPrompt!));
 
   return (
     <div
@@ -43,7 +47,12 @@ export const CountryCard = ({ country }: CountryCardProps) => {
       <img src={country.flags.svg} alt={country.flags.alt} />
 
       <div className={styles.content}>
-        <h3>{country.name.common}</h3>
+        {/* <h3>{country.name.common}</h3> */}
+        <h3>
+          {searchPrompt
+            ? highlightMatch(country.name.common, searchPrompt!)
+            : country.name.common}
+        </h3>
         <ul>
           {infoData.map((el) => (
             <li key={el.title}>

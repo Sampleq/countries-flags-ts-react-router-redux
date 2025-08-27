@@ -2,7 +2,13 @@ export type ColorTheme = 'light' | 'dark';
 
 export type LoadingStatus = 'idle' | 'loading' | 'received' | 'rejected';
 
-export type Region = 'Africa' | 'America' | 'Asia' | 'Europe' | 'Oceania';
+export type Region =
+  | 'Africa'
+  | 'America'
+  | 'Asia'
+  | 'Europe'
+  | 'Oceania'
+  | 'Antarctic';
 
 // value и label будут строго согласованы
 export type SelectOption = {
