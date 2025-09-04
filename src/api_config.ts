@@ -2,7 +2,7 @@ import type { Country } from './types';
 
 const BASE_URL = 'https://restcountries.com/v3.1/';
 
-export const ALL_COUNTRIES =
+export const ALL_COUNTRIES_URL =
   BASE_URL + 'all?fields=name,capital,flags,population,region,cca3';
 
 export const getDetailedCountryURL = (name: Country['name']['common']) =>

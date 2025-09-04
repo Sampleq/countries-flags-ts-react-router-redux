@@ -5,7 +5,7 @@ import { selectAllCountries } from '@/redux/slices/countriesSlice';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/redux/redux-hook';
 import { getAllCountries } from '@/redux/asyncThunks';
-import { ALL_COUNTRIES } from '@/api_config';
+import { ALL_COUNTRIES_URL } from '@/api_config';
 import { CountryCard } from '@/components/CountryCard';
 import { Controls } from '@/components/Controls';
 import {
@@ -34,7 +34,7 @@ export const HomePage = ({}: HomePageProps) => {
 
   useEffect(() => {
     if (!allCountries.length) {
-      dispatch(getAllCountries(ALL_COUNTRIES));
+      dispatch(getAllCountries(ALL_COUNTRIES_URL));
     }
   }, []); //! проверить загружаются ли страны если перейти на сайт сразу на детальную страницу а потом вернутся Link на главную
 
