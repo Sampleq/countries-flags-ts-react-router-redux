@@ -6,21 +6,34 @@ export const getAllCountries = createAsyncThunk<
   Country[],
   string,
   { state: RootState; rejectValue: string }
->('@countries/getAllCountries', async (url, thunkAPI) => {
-  try {
-    const response = await fetch(url);
+>(
+  '@countries/getAllCountries',
+  async (url, thunkAPI) => {
+    try {
+      const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error('Error while fetch all countries');
+      if (!response.ok) {
+        throw new Error('Error while fetch all countries');
+      }
+
+      const result: Country[] = await response.json();
+      return result;
+    } catch (error) {
+      thunkAPI.extra;
+      thunkAPI.rejectWithValue((error as Error).message);
+      return [];
     }
+  },
+  {
+    condition: (url, api) => {
+      console.log('api.extra', api.extra);
 
-    const result: Country[] = await response.json();
-    return result;
-  } catch (error) {
-    thunkAPI.rejectWithValue((error as Error).message);
-    return [];
+      if (api.getState().countries.loadingStatus === 'loading') {
+        return false;
+      }
+    },
   }
-});
+);
 
 export const getDetailedCountry = createAsyncThunk<
   DetailedCountry | null,

@@ -38,6 +38,16 @@ const countriesSlice = createSlice({
       state.loadingStatus = 'rejected';
       state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
     });
+
+    // builder.addMatcher(
+    //   (action: any) => action.type.endsWith('/pending'), //! будет влиять на все действия с '/pending', даже из других слайсов
+    //   (state, action) => {
+    //     console.warn('from builder.addMatcher');
+
+    //     state.loadingStatus = 'loading';
+    //     state.error = null;
+    //   }
+    // );
   },
 });
 

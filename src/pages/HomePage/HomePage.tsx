@@ -17,6 +17,8 @@ import { filterCountries } from '@/utils/filterCountries';
 interface HomePageProps {}
 
 export const HomePage = ({}: HomePageProps) => {
+  console.log('HomePage');
+
   const dispatch = useAppDispatch();
 
   const countriesData = useSelector(selectAllCountries);
@@ -33,9 +35,18 @@ export const HomePage = ({}: HomePageProps) => {
   );
 
   useEffect(() => {
+    console.log('useEffect() in HomePage');
+
+    // let promise = dispatch(getAllCountries(ALL_COUNTRIES));
+
     if (!allCountries.length) {
+      console.log(!allCountries.length);
       dispatch(getAllCountries(ALL_COUNTRIES));
     }
+
+    // return () => {
+    //   promise.abort();
+    // };
   }, []); //! проверить загружаются ли страны если перейти на сайт сразу на детальную страницу а потом вернутся Link на главную
 
   return (
