@@ -16,6 +16,7 @@ export const CountryInfo = ({ country }: CountryInfoProps) => {
 
   const allCountries = useSelector(selectAllCountries).allCountries;
 
+  // //* Single loop through allCounties but more code in CountryInfo.tsx
   // let neighborNames: string[];
   // if (country.borders) {
   //   neighborNames = getNeighborsNamesFromCodes(allCountries, country.borders);

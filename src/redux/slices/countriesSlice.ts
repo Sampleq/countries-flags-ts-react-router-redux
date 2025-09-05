@@ -24,20 +24,19 @@ const countriesSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getAllCountries.pending, (state) => {
-      state.loadingStatus = 'loading';
-      state.error = null;
-    });
-
-    builder.addCase(getAllCountries.fulfilled, (state, action) => {
-      state.allCountries = action.payload;
-      state.loadingStatus = 'received';
-    });
-
-    builder.addCase(getAllCountries.rejected, (state, action) => {
-      state.loadingStatus = 'rejected';
-      state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
-    });
+    builder
+      .addCase(getAllCountries.pending, (state) => {
+        state.loadingStatus = 'loading';
+        state.error = null;
+      })
+      .addCase(getAllCountries.fulfilled, (state, action) => {
+        state.loadingStatus = 'received';
+        state.allCountries = action.payload;
+      })
+      .addCase(getAllCountries.rejected, (state, action) => {
+        state.loadingStatus = 'rejected';
+        state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
+      });
   },
 });
 

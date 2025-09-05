@@ -17,7 +17,9 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: { extraArgument: { client: axios, api } } }),
+    getDefaultMiddleware({
+      thunk: { extraArgument: { client: axios, api: api } },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

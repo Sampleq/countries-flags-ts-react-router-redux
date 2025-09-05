@@ -3,9 +3,11 @@ export function highlightMatch(text: string, search: string) {
 
   const textParts = text.split(regExp);
 
-  return textParts.map((textPart) => {
+  return textParts.map((textPart, i) => {
     return textPart.toLowerCase() === search.toLowerCase() ? (
-      <span className={'highlightedText'}>{textPart}</span>
+      <span className={'highlightedText'} key={i}>
+        {textPart}
+      </span>
     ) : (
       textPart
     );

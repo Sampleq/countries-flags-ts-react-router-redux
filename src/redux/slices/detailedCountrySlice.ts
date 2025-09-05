@@ -22,17 +22,19 @@ const detailedCountrySlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getDetailedCountry.pending, (state) => {
-      state.loadingStatus = 'loading';
-    });
-    builder.addCase(getDetailedCountry.fulfilled, (state, action) => {
-      state.country = action.payload;
-      state.loadingStatus = 'received';
-    });
-    builder.addCase(getDetailedCountry.rejected, (state, action) => {
-      state.loadingStatus = 'rejected';
-      state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
-    });
+    builder
+      .addCase(getDetailedCountry.pending, (state) => {
+        state.loadingStatus = 'loading';
+        state.error = null;
+      })
+      .addCase(getDetailedCountry.fulfilled, (state, action) => {
+        state.country = action.payload;
+        state.loadingStatus = 'received';
+      })
+      .addCase(getDetailedCountry.rejected, (state, action) => {
+        state.loadingStatus = 'rejected';
+        state.error = action.payload ?? 'Cannot load data'; // задаём строку с помощью ?? чтобы избежать ошибок ts
+      });
   },
 });
 

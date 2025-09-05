@@ -1,21 +1,48 @@
 import type { Country, DetailedCountry } from '@/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState } from './store';
+import type { AxiosInstance } from 'axios';
+
+import * as api from '@/api_config';
 
 export const getAllCountries = createAsyncThunk<
   Country[],
   string,
-  { state: RootState; rejectValue: string }
->('@countries/getAllCountries', async (url, thunkAPI) => {
+  {
+    state: RootState;
+    rejectValue: string;
+    extra: {
+      client: AxiosInstance;
+      api: typeof api;
+    };
+  }
+  // >('@countries/getAllCountries', async (url, thunkAPI) => { // for OPT - 2: fetch
+>('@countries/getAllCountries', async (_, thunkAPI) => {
   try {
-    const response = await fetch(url);
+    // OPT - 1: axios
+    const {
+      extra: { client, api },
+    } = thunkAPI;
 
-    if (!response.ok) {
+    const axiosResponse = await client.get(api.ALL_COUNTRIES_URL);
+    // console.log(axiosResponse);
+
+    if (axiosResponse.status !== 200) {
       throw new Error('Error while fetch all countries');
     }
 
-    const result: Country[] = await response.json();
-    return result;
+    const axiosData: Country[] = axiosResponse.data;
+    // console.log(axiosData);
+
+    return axiosData;
+
+    // // OPT - 2: fetch
+    // const response = await fetch(url);
+    // if (!response.ok) {
+    //   throw new Error('Error while fetch all countries');
+    // }
+    // const result: Country[] = await response.json();
+    // return result;
   } catch (error) {
     thunkAPI.rejectWithValue((error as Error).message);
     return [];

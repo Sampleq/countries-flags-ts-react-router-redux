@@ -1,42 +1,17 @@
 import { Wrapper } from '@/components/Wrapper';
 import styles from './HomePage.module.scss';
-import { useSelector } from 'react-redux';
-import { selectAllCountries } from '@/redux/slices/countriesSlice';
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/redux/redux-hook';
-import { getAllCountries } from '@/redux/asyncThunks';
-import { ALL_COUNTRIES_URL } from '@/api_config';
+
 import { CountryCard } from '@/components/CountryCard';
 import { Controls } from '@/components/Controls';
-import {
-  selectFilterName,
-  selectFilterRegion,
-} from '@/redux/slices/filtersSlice';
-import { filterCountries } from '@/utils/filterCountries';
+
+import { useFilteredCountries } from './useFilteredCountries';
 
 interface HomePageProps {}
 
 export const HomePage = ({}: HomePageProps) => {
-  const dispatch = useAppDispatch();
-
-  const countriesData = useSelector(selectAllCountries);
-  // console.log(countriesData);
-  const { error, allCountries, loadingStatus } = countriesData;
-
-  const filterName = useSelector(selectFilterName);
-  const filterRegion = useSelector(selectFilterRegion);
-
-  const filteredCountries = filterCountries(
-    allCountries,
-    filterName,
-    filterRegion
-  );
-
-  useEffect(() => {
-    if (!allCountries.length) {
-      dispatch(getAllCountries(ALL_COUNTRIES_URL));
-    }
-  }, []); //! проверить загружаются ли страны если перейти на сайт сразу на детальную страницу а потом вернутся Link на главную
+  /* custom hook */
+  const [filteredCountries, countriesData, filterName] = useFilteredCountries();
+  const { error, loadingStatus } = countriesData;
 
   return (
     <div className={styles.homePage}>
